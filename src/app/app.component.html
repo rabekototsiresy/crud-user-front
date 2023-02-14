@@ -35,7 +35,6 @@
       <td class="text-center" colspan="4">
         <img src="assets/images/empty.png" alt="" class="empty-img">
         No data4
-
         <i class="fa-solid fa-empty-set"></i>
       </td>
     </tr>
@@ -65,7 +64,7 @@
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="text" [disabled]="!isAdd" name="password" class="form-control"  placeholder="Password" required  [(ngModel)]="user.password">
+        <input type="password" [disabled]="!isAdd" name="password" class="form-control"  placeholder="Password" required  [(ngModel)]="user.password">
       </div>
       <div class="row d-flex ">
         <button  type="submit" #btnSubmit class="btn bg-dark text-white">{{isAdd ? 'Add' : 'Update'}} user</button>

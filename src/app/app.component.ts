@@ -18,6 +18,7 @@ export class AppComponent implements OnInit{
   public user: User = {} as User;
   public titleModal = '';
   public isAdd: boolean = false;
+
   ngOnInit(): void {
     this.userService.getAllUser().subscribe(
       ({ data }) => {
@@ -26,7 +27,6 @@ export class AppComponent implements OnInit{
     )
   }
 
- 
   openAddModal(template: TemplateRef<any>, btn: TemplateRef<any>  | any, user?: User) {
     if(user) {
       this.isAdd = false;
@@ -53,13 +53,13 @@ export class AppComponent implements OnInit{
       const rest = extract(this.user,'_id','__v')
       this.userService.updateUserById(this.user,rest._id).subscribe(
         ({ data }) => {
-          //this.userList =  [...this.userList, data as User];
           btn.disabled = false;
           this.closeModal()
         }
       )
     }
   }
+
   deleteUser(id: String = '') {
     this.userService.deleteUerById(id).subscribe(
       ({ data }) => {
@@ -76,6 +76,7 @@ export class AppComponent implements OnInit{
     )
     this.modalRef = this.modalService.show(template);
   }
+  
   closeModal() {
     this.modalRef?.hide();
     this.user = {} as User;
