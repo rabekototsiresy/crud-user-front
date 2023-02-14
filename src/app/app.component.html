@@ -1,80 +1,107 @@
 
 <app-header></app-header>
-<router-outlet></router-outlet>
-<h1>
-  LIST OF USERS
-</h1>
-<div class="container">
-  <table datatable class="row-border hover">
+
+<div class="container my-2">
+  <div class="row ">
+    <div class="col-md-12 d-flex justify-content-between bg-light py-3">
+      <h2>
+        LIST OF USERS
+      </h2>
+      <button #addRef (click)="openAddModal(template, addRef)" class="btn bg-dark text-white">Add user</button>
+    </div>
+  </div>
+  <table class="table table-striped">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>First name</th>
-        <th>Last name</th>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Usrname</th>
+        <th scope="col" >Action</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Foo</td>
-        <td>Bar</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Someone</td>
-        <td>Youknow</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Iamout</td>
-        <td>Ofinspiration</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Yoda</td>
-        <td>Skywalker</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>Patrick</td>
-        <td>Dupont</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>Barack</td>
-        <td>Obama</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>François</td>
-        <td>Holland</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>Michel</td>
-        <td>Popo</td>
-      </tr>
-      <tr>
-        <td>9</td>
-        <td>Chuck</td>
-        <td>Norris</td>
-      </tr>
-      <tr>
-        <td>10</td>
-        <td>Simon</td>
-        <td>Robin</td>
-      </tr>
-      <tr>
-        <td>11</td>
-        <td>Louis</td>
-        <td>Lin</td>
-      </tr>
-      <tr>
-        <td>12</td>
-        <td>Zelda</td>
-        <td>Link</td>
+    <tbody *ngIf="userList.length !==0">
+      <tr *ngFor="let user of userList">
+        <td>{{ user.firstName}}</td>
+        <td>{{ user.lastName}}</td>
+        <td>{{ user.username}}</td>
+        <td class="w-25">
+          <button class="btn" (click)="openDetailUser(detailRef,user._id)"><i class="fa fa-eye"></i></button>
+          <button class="btn" #editRef (click)="openAddModal(template, editRef, user)"><i class="fa fa-edit"></i></button>
+          <button class="btn"><i class="fa fa-close" (click)="deleteUser(user._id)"></i></button>
+        </td>
       </tr>
     </tbody>
+    <tr *ngIf="userList.length ===0">
+      No data
+    </tr>
   </table>
-  
 </div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ titleModal }}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form ngNativeValidate (ngSubmit)="addUser(btnSubmit)">
+      <div class="mb-3">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" name="firstName" class="form-control"  placeholder="First name" [(ngModel)]="user.firstName" required  >
+      </div>
+      <div class="mb-3">
+        <label for="firstName" class="form-label">Last Name</label>
+        <input type="text" name="lastName" class="form-control"  placeholder="Last name" required  [(ngModel)]="user.lastName">
+      </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" name="username" class="form-control"  placeholder="Username" required  [(ngModel)]="user.username">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="text" [disabled]="!isAdd" name="password" class="form-control"  placeholder="Password" required  [(ngModel)]="user.password">
+      </div>
+      <div class="row d-flex ">
+        <button  type="submit" #btnSubmit class="btn bg-dark text-white">{{isAdd ? 'Add' : 'Update'}} user</button>
+      </div>    
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #detailRef>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Detail user</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div>
+        <table class="table table-striped table-hover">
+          <tbody>
+            <tr>
+              <td>First Name</td>
+              <td>{{user.firstName}}</td>
+            </tr>
+            <tr>
+              <td>Last Name</td>
+              <td>{{user.lastName}}</td>
+            </tr>
+            <tr>
+              <td>Username</td>
+              <td>{{user.username}}</td>
+            </tr>
+            <tr>
+              <td>Password crypté</td>
+              <td>
+                <textarea disabled name="" id="" cols="30" rows="5">
+                  {{user.password}}
+                </textarea>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+</ng-template>
