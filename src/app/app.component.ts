@@ -53,6 +53,7 @@ export class AppComponent implements OnInit{
       const rest = extract(this.user,'_id','__v')
       this.userService.updateUserById(this.user,rest._id).subscribe(
         ({ data }) => {
+          Object.assign(this.user,rest);
           btn.disabled = false;
           this.closeModal()
         }
@@ -61,6 +62,7 @@ export class AppComponent implements OnInit{
   }
 
   deleteUser(id: String = '') {
+    console.log('remove action')
     this.userService.deleteUerById(id).subscribe(
       ({ data }) => {
         this.userList =  this.userList.filter((user: User) => user._id !== id);
@@ -68,7 +70,7 @@ export class AppComponent implements OnInit{
     )
   }
   
-  openDetailUser(template: TemplateRef<any>,id: string = 'open') {
+  openDetailUser(template: TemplateRef<any>,id: string = '') {
     this.userService.getUserById(id).subscribe(
       ({ data }) => {
         this.user = data as User;
