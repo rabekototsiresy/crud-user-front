@@ -6,7 +6,7 @@ import { IResponse } from './shared/interfaces/IResponse';
 import { User } from './shared/models/User';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Subject } from 'rxjs';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit{
   constructor(
     private userService: UserService, 
     private modalService: BsModalService,
+    private toastr: ToastrService
   ){}
 
   ngOnInit(): void {
@@ -48,8 +49,9 @@ export class AppComponent implements OnInit{
     btn.disabled = true;
     if(this.isAdd) {
       this.userService.createUser(this.user).subscribe(
-        ({ data }) => {
+        ({ data,message }) => {
           this.userList =  [...this.userList, data as User];
+          this.toastr.success(message, 'Success');
           btn.disabled = false;
           this.closeModal()
         }
@@ -57,8 +59,9 @@ export class AppComponent implements OnInit{
     } else {
       const rest = extract(this.user,'_id','__v')
       this.userService.updateUserById(this.user,rest._id).subscribe(
-        ({ data }) => {
+        ({ data,message }) => {
           Object.assign(this.user,rest);
+          this.toastr.success(message, 'Success');
           btn.disabled = false;
           this.closeModal()
         }
@@ -68,7 +71,8 @@ export class AppComponent implements OnInit{
 
   deleteUser(id: String = '') {
     this.userService.deleteUerById(id).subscribe(
-      ({ data }) => {
+      ({ data,message }) => {
+        this.toastr.success(message, 'Success');
         this.userList =  this.userList.filter((user: User) => user._id !== id);
       }
     )

@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
-
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,8 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
     FormsModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    ToastrModule,
+    ToastrModule.forRoot(), 
   ],
   providers: [
     {
