@@ -1,13 +1,15 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DataTablesModule } from "angular-datatables";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
-
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgxSpinnerModule } from "ngx-spinner";
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
 
 
 @NgModule({
@@ -21,9 +23,18 @@ import { FormsModule } from '@angular/forms';
     DataTablesModule,
     HttpClientModule,
     ModalModule.forRoot(),
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,
+   },
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

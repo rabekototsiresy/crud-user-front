@@ -4,6 +4,8 @@ import { extract } from './common/utils';
 import { UserService } from './services/user/user.service';
 import { IResponse } from './shared/interfaces/IResponse';
 import { User } from './shared/models/User';
+import { NgxSpinnerService } from "ngx-spinner";
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +13,16 @@ import { User } from './shared/models/User';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+  title = 'Curd User Manatalent';
   modalRef?: BsModalRef;
-  constructor(private userService: UserService, private modalService: BsModalService){}
-  title = 'crud-user-front';
   public userList: User[]  = [];
   public user: User = {} as User;
   public titleModal = '';
   public isAdd: boolean = false;
+  constructor(
+    private userService: UserService, 
+    private modalService: BsModalService,
+  ){}
 
   ngOnInit(): void {
     this.userService.getAllUser().subscribe(
