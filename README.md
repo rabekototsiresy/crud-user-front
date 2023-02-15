@@ -1,27 +1,53 @@
-# CrudUserFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.8.
+# CRUD USER MANATALENT
 
-## Development server
+**Description**:  C'est une API (Application Programming Interface) développée sur Express et utilisant MongoDB comme base de données, elle s'exécute également sur l'environnement de développement TypeScript. Elle fournit des ressources au client pour :  
+1. creer un utilisateur.
+2. supprimer un utilisateur
+3. modifier un utilisateur
+4. afficher un utilisateur
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Dependencies
+- Node js `>= ^16.0.0`
+- Typescript environment
+ 
+## Installation
+1. Recuperer le projet sur le depot
+  ```
+  git clone https://github.com/rabekototsiresy/crud-user-api.git
+  ```
 
-## Code scaffolding
+  ----
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. Deplacer dans le dossier
 
-## Build
+3. Installation des dependances
+  ```
+  npm install
+  ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  ----
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Configuration
+Configuration variable d'environment `.env`
+ 
+  ```
+  PORT = "2021" `default`
+  DB_NAME="NOTRE BASE DE DONNE"
+  DB_PASS="NOTRE MOT DE PASSE"
+  DB_USER="NOTRE NOM D UTILISATEUR"
+  ```
 
-## Running end-to-end tests
+  ----
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Lancement du projet
+
+- Lancement du projet 
+  ```
+  npm start
+  ```
+
+  ----
