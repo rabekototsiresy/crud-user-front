@@ -31,7 +31,6 @@
 
 ## Lancement du projet
 
-- Lancement du projet 
   ```
   ng serve
   ```
