@@ -67,7 +67,6 @@ export class AppComponent implements OnInit{
   }
 
   deleteUser(id: String = '') {
-    console.log('remove action')
     this.userService.deleteUerById(id).subscribe(
       ({ data }) => {
         this.userList =  this.userList.filter((user: User) => user._id !== id);
